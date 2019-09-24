@@ -25,8 +25,9 @@ public class MeasurementsResource {
     store.add(measurement);
 
     return ResponseEntity
-      .created(URI.create("/measurements/" +  dateTimeFormatter.format(measurement.getTimestamp())))
-      .build();
+            .created(URI.create("/measurements/" +  dateTimeFormatter.format(measurement.getTimestamp())))
+            .location(URI.create("/measurements/" +  dateTimeFormatter.format(measurement.getTimestamp())))
+            .build();
   }
 
   // features/01-measurements/02-get-measurement.feature
