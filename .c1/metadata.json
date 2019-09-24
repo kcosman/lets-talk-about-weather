@@ -1,0 +1,10 @@
+{
+  "language": "Java",
+  "platformVersion": "1.8.0_221",
+  "tags": [
+    "java"
+  ],
+  "paths": [
+    "languages/java"
+  ]
+}
