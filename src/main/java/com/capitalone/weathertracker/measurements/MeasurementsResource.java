@@ -19,6 +19,13 @@ public class MeasurementsResource {
     this.dateTimeFormatter = dateTimeFormatter;
   }
 
+  // features/01-measurements/05-delete-measurement.feature
+  @DeleteMapping
+  public ResponseEntity<?> deleteMeasurement(@Valid @RequestBody ZonedDateTime timestamp) {
+    store.delete(timestamp);
+    return ResponseEntity.noContent().build();
+  }
+
   // features/01-measurements/01-add-measurement.feature
   @PostMapping
   public ResponseEntity<?> createMeasurement(@Valid @RequestBody Measurement measurement) {

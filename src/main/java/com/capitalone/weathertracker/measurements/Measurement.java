@@ -5,14 +5,11 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
 import java.time.ZonedDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import javax.validation.constraints.NotNull;
 
-public class Measurement {
+public class Measurement implements Comparable<Measurement> {
   @JsonProperty(value="timestamp") @NotNull
   private ZonedDateTime timestamp;
 
@@ -64,6 +61,11 @@ public class Measurement {
   }
 
   @Override
+  public int compareTo(Measurement o2) {
+    return timestamp.compareTo(o2.timestamp);
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -75,5 +77,14 @@ public class Measurement {
   @Override
   public int hashCode() {
     return Objects.hash(timestamp, metrics);
+  }
+
+  @Override
+  public String toString() {
+    return "Measurement{" +
+            "timestamp=" + timestamp +
+            ", metrics=" + metrics +
+            ", metricsView=" + metricsView +
+            '}';
   }
 }

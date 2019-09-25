@@ -2,7 +2,7 @@ target
 node_modules
 
 *.log
-
+*.idea
 
 
 # Keep these so the java stub project doesn't cause errors

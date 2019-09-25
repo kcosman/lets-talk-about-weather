@@ -16,34 +16,34 @@ import java.time.format.DateTimeFormatterBuilder;
 
 @Configuration
 class DateSerializationConfiguration {
-  private final DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
-    .parseCaseInsensitive()
-    .appendInstant(3)
-    .toFormatter();
+    private final DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
+            .parseCaseInsensitive()
+            .appendInstant(3)
+            .toFormatter();
 
-  @Bean
-  public DateTimeFormatter dateTimeFormatter() {
-    return dateTimeFormatter;
-  }
-
-  @Bean
-  public ObjectMapper objectMapper() {
-    return new ObjectMapper()
-      .registerModule(javaTimeModule())
-      .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-  }
-
-  private Module javaTimeModule() {
-    JavaTimeModule module = new JavaTimeModule();
-
-    return module.addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(dateTimeFormatter));
-  }
-
-  @Component
-  static class ZonedDateTimeConverter implements Converter<String, ZonedDateTime> {
-    @Override
-    public ZonedDateTime convert(String source) {
-      return ZonedDateTime.parse(source);
+    @Bean
+    public DateTimeFormatter dateTimeFormatter() {
+        return dateTimeFormatter;
     }
-  }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper()
+                .registerModule(javaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
+
+    private Module javaTimeModule() {
+        JavaTimeModule module = new JavaTimeModule();
+
+        return module.addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(dateTimeFormatter));
+    }
+
+    @Component
+    static class ZonedDateTimeConverter implements Converter<String, ZonedDateTime> {
+        @Override
+        public ZonedDateTime convert(String source) {
+            return ZonedDateTime.parse(source);
+        }
+    }
 }
